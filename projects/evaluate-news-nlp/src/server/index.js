@@ -3,9 +3,12 @@ const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 const dotenv = require('dotenv');
 dotenv.config();
+const bodyParser = require('body-parser')
+const axios = require('axios')
 
 const app = express()
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static('dist'))
 
 console.log(__dirname)
@@ -24,3 +27,64 @@ app.get('/test', function (req, res) {
     console.log(`Your API key is ${process.env.API_KEY}`);
     res.send(mockAPIResponse)
 })
+
+
+app.post('/testPost', function (req, res) {
+    res.send({ok:'OK'});
+})
+
+
+app.post('/meaning', getMeaning)
+
+
+async function getMeaning(req, res) {
+   const txt = req.body.txt
+   const lang = req.body.lang
+console.log("heyy",txt,lang)
+  try {
+    const response = await axios.get(`https://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&txt=${txt}&lang=${lang}`);
+    console.log(response.data);
+    res.send(response.data)
+  } catch (error) {
+    console.error(error);
+    res.send({result:'error'})
+  }
+}
+
+
+
+// Post Route
+app.post('/meaningxx', sendData);
+function sendData (req, res) {
+  projectData={
+    key:process.env.API_KEY,
+    txt:req.body.txt,
+    lang:req.body.lang
+  }
+//   const formdata = new FormData();
+// formdata.append("key", "YOUR API KEY");
+// formdata.append("txt", "YOUR TEXT HERE");
+// formdata.append("lang", "TEXT LANGUAGE HERE");  // 2-letter code, like en es fr ...
+const requestOptions = {
+  method: 'POST',
+  body: projectData,
+  redirect: 'follow'
+};
+
+const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
+  .then(response => ({
+    status: response.status, 
+    body: response.json()
+  }))
+  .then(({ status, body }) => console.log("hola1",status, body))
+  .catch(error => console.log('error hola2', error));
+
+
+ 
+
+
+  res.send({result:'OK'})
+};
+
+
+
