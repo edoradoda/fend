@@ -1,10 +1,14 @@
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault()
-
     // check what text was put into the form field
     let formText = document.getElementById('name').value
-    // checkForName(formText)
-    postData('/meaning', {txt:'El pajarito es bonito!  y tambien es hermoso pero no me gusta como canta', lang:'es'} );
+    let language = document.getElementById('lang').value
+    console.log("dataSend",formText,language)
+    if(Client.checkForText(formText)){
+      let rsData = await postData('/meaning', {txt:formText, lang:language} );
+      Client.showResult(rsData)
+    }
+    // getTexturl('url')
 }
 
 /* Function to POST data */
@@ -21,7 +25,7 @@ const postData = async ( url = '', data = {})=>{
 // debugger
     try {
       const newData = await response.json();
-      console.log("POst Data",newData);
+      // console.log("POst Data",newData);
       return newData;
     } catch(error) {
       console.log("error",error)

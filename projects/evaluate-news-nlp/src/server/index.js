@@ -40,10 +40,9 @@ app.post('/meaning', getMeaning)
 async function getMeaning(req, res) {
    const txt = req.body.txt
    const lang = req.body.lang
-console.log("heyy",txt,lang)
   try {
     const response = await axios.get(`https://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&txt=${txt}&lang=${lang}`);
-    console.log(response.data);
+    // console.log(response.data);
     res.send(response.data)
   } catch (error) {
     console.error(error);
@@ -61,15 +60,12 @@ function sendData (req, res) {
     txt:req.body.txt,
     lang:req.body.lang
   }
-//   const formdata = new FormData();
-// formdata.append("key", "YOUR API KEY");
-// formdata.append("txt", "YOUR TEXT HERE");
-// formdata.append("lang", "TEXT LANGUAGE HERE");  // 2-letter code, like en es fr ...
-const requestOptions = {
-  method: 'POST',
-  body: projectData,
-  redirect: 'follow'
-};
+
+  const requestOptions = {
+    method: 'POST',
+    body: projectData,
+    redirect: 'follow'
+  };
 
 const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
   .then(response => ({

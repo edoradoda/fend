@@ -3,36 +3,53 @@
     <head>
         <meta charset="utf-8">
         <title>Test</title>
+        <meta  charset="utf-8">  
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+        <title>Sentiment-analysis</title>
     </head>
 
     <body>
+        <div class="wrapper">
+            <header  class="main-head">
+                <div class="logoBox">
+                    <img id="logo" src="" alt="Avatar" class="logoBox">
+                </div>
+                <span class="tittle">Sentiment Analysis</span>
+            </header>
+            <nav class="main-nav">
+                <!-- <ul>
+                    <li><a href="">Nav 1</a></li>
+                    <li><a href="">Nav 2</a></li>
+                    <li><a href="">Nav 3</a></li>
+                </ul> -->
+            </nav>
 
-        <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
-            </div>
-        </header>
+            <main class="content">
+                <section>
+                    <form class="form" onsubmit="Client.handleSubmit(event)">
+                        <!-- <input id="name" type="text" name="input" value=""  placeholder="Name"> -->
+                        <textarea name="name"  id="name" rows="10" cols="100" class="input_"  placeholder="Write something here!" ></textarea>
+                        <div class="language">
+                            <label for="lang">Language</label>
+                            <select name="lang" id="lang">
+                                <option value="en" selected>English</option>
+                                <option value="es" >Español</option>
+                              </select>
+                        </div>
+                        <input type="submit" name="" value="Analyze"  onclick="Client.handleSubmit(event)" onsubmit="Client.handleSubmit(event)" class="button">
+                    </form>
+                </section>
 
-        <main>
-            <section>
-                <form class="" onsubmit="Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value=""  placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="Client.handleSubmit(event)" onsubmit="Client.handleSubmit(event)">
-                </form>
-            </section>
+                <section class="sectionResult">
+                    <strong>Results:</strong>
+                    <div id="results">
 
-            <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
-            </section>
-        </main>
-
-        <footer>
-            <p>This is a footer</p>
-        </footer>
-
+                    </div>
+                </section>
+            </main>
+            <footer class="main-footer"></footer>
+        </div>
     </body>
 </html>
+
+
