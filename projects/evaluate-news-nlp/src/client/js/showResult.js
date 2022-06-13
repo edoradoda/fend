@@ -1,5 +1,5 @@
 function showResult(rsDatas) {
-    console.log("::: Running shoeResult :::", rsDatas);
+    console.log("::: Running showResult :::", rsDatas);
     let divResult=document.getElementById("results");
     divResult.innerHTML="";
     for (const rsData in rsDatas) {

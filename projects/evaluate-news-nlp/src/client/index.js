@@ -1,7 +1,7 @@
-import { checkForName } from './js/nameChecker'
 import { checkForText } from './js/textChecker'
 import { handleSubmit } from './js/formHandler'
 import { showResult } from './js/showResult'
+import { removeError } from './js/removeError'
 
 import './styles/resets.scss'
 import './styles/base.scss'
@@ -14,10 +14,10 @@ const element= document.getElementById("logo");
 element.src=Logo;
 
 export {
-    checkForName,
     handleSubmit,
     checkForText,
-    showResult
+    showResult,
+    removeError
 
 }
 

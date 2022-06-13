@@ -19,7 +19,7 @@ form {
 .input_:focus { 
     outline: none !important;
     border-color: #719ECE;
-    box-shadow: 0 0 10px #e9c4c4;
+    box-shadow: 0 0 10px #b8d5a8;
  }
 
 
@@ -87,5 +87,21 @@ form {
     display: flex;
     gap: 5px;
     flex-direction: column;
+}
+
+.error {
+    border-color: #dc2915;
+    box-shadow: 2px 2px 2px 1px RGB(255 0 0 / 20%);
+}
+
+.ok {
+    border-color: #15dc36;
+    box-shadow: 2px 2px 2px 1px RGB(119 221 119 / 20%);
+}
+
+.divError {
+    color:red;
+    background-color: white;
+    font-size: smaller;
 }
   

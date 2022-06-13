@@ -28,7 +28,11 @@
                 <section>
                     <form class="form" onsubmit="Client.handleSubmit(event)">
                         <!-- <input id="name" type="text" name="input" value=""  placeholder="Name"> -->
-                        <textarea name="name"  id="name" rows="10" cols="100" class="input_"  placeholder="Write something here!" ></textarea>
+                        <div >
+                            <textarea name="name"  id="name" rows="10" cols="100" class="input_"  placeholder="Write something here!"  onkeyup="Client.removeError()" ></textarea>
+                            <label id='msjError' class="divError"></label>
+                        </div>
+                        
                         <div class="language">
                             <label for="lang">Language</label>
                             <select name="lang" id="lang">

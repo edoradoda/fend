@@ -12,7 +12,8 @@
   "jest": {
     "setupFiles": [
       "<rootDir>/setupTests.js"
-    ]
+    ],
+    "testEnvironment": "jsdom"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +38,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.0.2",
+    "jest-environment-jsdom": "^28.1.1",
     "mini-css-extract-plugin": "^2.6.0",
     "node-sass": "^7.0.1",
     "nodemon": "^2.0.15",
