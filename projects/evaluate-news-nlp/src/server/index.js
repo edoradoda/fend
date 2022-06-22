@@ -5,8 +5,14 @@ const dotenv = require('dotenv');
 dotenv.config();
 const bodyParser = require('body-parser')
 const axios = require('axios')
-
+const cors = require("cors");
 const app = express()
+
+app.use(cors({
+  origin :'https://www.lightuniverso.com/',
+  credentials: true, // <= Accept credentials (cookies) sent by the client
+}));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('dist'))
@@ -19,7 +25,7 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
+app.listen(process.env.PORT || 8081, function () {
     console.log('Example app listening on port 8081!')
 })
 
