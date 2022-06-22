@@ -15,14 +15,14 @@ async function handleSubmit(event) {
 const postData = async ( url = '', data = {})=>{
   // console.log("url",url)
     url='https://sentiment-analysis-100.herokuapp.com/meaning'
+    console.log("data",data, JSON.stringify(data))
     const response = await fetch(url, {
     method: 'POST', 
     // credentials: 'same-origin',
-    credentials: 'include',
+    credentials: 'omit',
     mode: 'no-cors',
     headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
     },
         
    // Body data type must match "Content-Type" header        
@@ -31,7 +31,7 @@ const postData = async ( url = '', data = {})=>{
 // debugger
     try {
       const newData = await response.json();
-      // console.log("POst Data",newData);
+      console.log("POst Data",newData);
       return newData;
     } catch(error) {
       console.log("error",error)

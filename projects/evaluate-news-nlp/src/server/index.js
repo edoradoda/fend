@@ -9,8 +9,12 @@ const cors = require("cors");
 const app = express()
 
 app.use(cors({
-  origin :'https://www.lightuniverso.com/',
-  credentials: true, // <= Accept credentials (cookies) sent by the client
+  origin :'https://www.lightuniverso.com',
+  // origin: true,
+  methods: ["POST"],
+  credentials: true,
+  maxAge: 3600
+  // credentials: true, // <= Accept credentials (cookies) sent by the client
 }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
