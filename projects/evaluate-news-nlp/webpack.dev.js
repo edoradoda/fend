@@ -19,6 +19,7 @@ module.exports = {
         proxy: {
           '/': {
             target: 'http://localhost:8081',
+            // target: 'http://sentiment-analysis-100.herokuapp.com',
             bypass: function (req, res, proxyOptions) {
               if (req.headers.accept.indexOf('html') !== -1) {
                 console.log('Skipping proxy for browser request.');

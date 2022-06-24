@@ -8,16 +8,23 @@ const axios = require('axios')
 const cors = require("cors");
 const app = express()
 
-app.use(cors({
-  origin :'https://www.lightuniverso.com',
-  // origin: true,
-  methods: ["POST"],
-  credentials: true,
-  maxAge: 3600
-  // credentials: true, // <= Accept credentials (cookies) sent by the client
-}));
+var corsOptions = {
+  origin: ['https://www.lightuniverso.com','http://localhost:8080','http://localhost:8081'],
+  // origin:'http://localhost:8080',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('dist'))
 
@@ -44,53 +51,49 @@ app.post('/testPost', function (req, res) {
 })
 
 
-app.post('/meaning', getMeaning)
+// app.post('/meaning', getMeaning)
+
+app.post('/meaning', function (req, res) {
+  console.log("data",req.body)
+  let rs= getMeaning(req)
+  rs.then(response =>  res.send(response))
+ 
+})
 
 
-async function getMeaning(req, res) {
+async function getMeaning(req) {
    const txt = req.body.txt
    const lang = req.body.lang
   try {
     const response = await axios.get(`https://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&txt=${txt}&lang=${lang}`);
+    // const response = await axios.get(`https://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&txt=en&lang=en`);
     // console.log(response.data);
-    res.send(response.data)
+    return response.data
+    // res.send({req:req.body})
   } catch (error) {
     console.error(error);
-    res.send({result:'error'})
+    return error
   }
 }
 
+// async function getMeaning(req, res) {
+//   const txt = req.body.txt
+//   const lang = req.body.lang
+//  try {
+//    const response = await axios.get(`https://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&txt=${txt}&lang=${lang}`);
+//    // const response = await axios.get(`https://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&txt=en&lang=en`);
+//    // console.log(response.data);
+//    res.send(response.data)
+//    // res.send({req:req.body})
+//  } catch (error) {
+//    console.error(error);
+//    res.send({result:'error'})
+//  }
+// }
 
 
-// Post Route
-app.post('/meaningxx', sendData);
-function sendData (req, res) {
-  projectData={
-    key:process.env.API_KEY,
-    txt:req.body.txt,
-    lang:req.body.lang
-  }
-
-  const requestOptions = {
-    method: 'POST',
-    body: projectData,
-    redirect: 'follow'
-  };
-
-const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
-  .then(response => ({
-    status: response.status, 
-    body: response.json()
-  }))
-  .then(({ status, body }) => console.log("hola1",status, body))
-  .catch(error => console.log('error hola2', error));
 
 
- 
-
-
-  res.send({result:'OK'})
-};
 
 
 

@@ -1,4 +1,5 @@
 .DS_Store
 node_modules/
 bower_components/
+sentiment-analysis-100/
 .env
